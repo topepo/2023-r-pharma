@@ -1,0 +1,103 @@
+---
+title: "Serverless Shiny in Quarto Documents"
+author: "Max Kuhn"
+---
+
+# 
+
+::: r-fit-text
+
+[`topepo.github.io/2023-r-pharma`](https://topepo.github.io/2023-r-pharma)
+:::
+
+
+
+## shinylive
+
+A project for deploying Shiny applications that will run completely in the browser (R and python)
+
+<br>
+
+R and Python are compiled to WebAssembly (aka wasm)
+
+ - R and packages are made into a binary format that can be embedded in the website. 
+ - JavaScript is the interface that the browser uses.
+
+I'll talk about adding shiny to Quarto documents (a book, in my case)
+
+([Quarto extension](https://github.com/quarto-ext/shinylive), [R package](https://github.com/posit-dev/r-shinylive))
+
+## yml options
+
+Your shiny app goes in a single code chunk of type `shinylive-r` and use the `standalone` option: 
+
+````yml
+```{shinylive-r}
+#| label: fig-shiny-spline
+#| standalone: true
+````
+
+<br> 
+
+You also have to add a Quarto _filter_ in your `_quarto.yml` file: 
+
+```yml
+filters:
+  - shinylive
+```
+
+## Package declarations
+
+<br> 
+
+At the start of the shiny code chunk, declare your package dependencies using: 
+
+```{r}
+#| label: pkg-installs
+#| eval: false
+
+webr::install("ggplot2")
+```
+
+There currently is no `webr` package; it's all internal. 
+
+<br>
+
+(GH issue: [Add feature/instructions for additional R packages](https://github.com/posit-dev/r-shinylive/issues/9))
+
+
+# If you live in JavaScript's house, you have to live by JavaScript's rules
+
+
+## Data access
+
+<br> 
+
+You _don't_ get automatic access to your local data (currently)
+
+<br> 
+
+`download.file()` is an option but it must be done using specific request types. 
+
+<br> 
+
+It's a work in progress.  (GH issue: [Add local folder support](https://github.com/posit-dev/r-shinylive/issues/13))
+
+#
+
+::: r-fit-text
+
+The example app:
+
+[`topepo.github.io/shinylive-in-book-test`](https://topepo.github.io/shinylive-in-book-test)
+:::
+
+
+
+## Thanks
+
+Thanks for the invitation to speak today!
+
+<br> 
+
+Thanks to George Stagg, Joe Cheng, Winston Chang, and everyone else who made `webR` and `shinylive` happen. 
