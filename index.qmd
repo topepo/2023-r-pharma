@@ -50,24 +50,18 @@ filters:
 
 <br> 
 
-At the start of the shiny code chunk, declare your package dependencies using: 
+To declare packages, use `library()` calls or a DESCRIPTION file
 
-```{r}
-#| label: pkg-installs
-#| eval: false
+<br>
 
-webr::install("ggplot2")
-```
-
-There currently is no `webr` package; it's all internal. 
+The renv package is used to figure this out. 
 
 <br>
 
 (GH issue: [Add feature/instructions for additional R packages](https://github.com/posit-dev/r-shinylive/issues/9))
 
 
-# If you live in JavaScript's house, you have to live by JavaScript's rules
-
+# If you live in JavaScript's house, <br> you have to live by JavaScript's rules
 
 ## Data access
 
@@ -82,6 +76,21 @@ You _don't_ get automatic access to your local data (currently)
 <br> 
 
 It's a work in progress.  (GH issue: [Add local folder support](https://github.com/posit-dev/r-shinylive/issues/13))
+
+
+## As always, be careful... 
+
+<br> 
+
+- All the source code goes to the client
+
+- All of the data goes to the client
+
+- Don't include credentials
+
+- Don't include sensitive data
+
+
 
 #
 
@@ -100,4 +109,4 @@ Thanks for the invitation to speak today!
 
 <br> 
 
-Thanks to George Stagg, Joe Cheng, Winston Chang, and everyone else who made `webR` and `shinylive` happen. 
+Thanks to George Stagg, Joe Cheng, Winston Chang, Gordon Shotwell, and everyone else who made `webR` and `shinylive` happen. 

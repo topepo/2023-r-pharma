@@ -436,17 +436,15 @@ Max Kuhn
 <section id="package-declarations" class="slide level2">
 <h2>Package declarations</h2>
 <p><br></p>
-<p>At the start of the shiny code chunk, declare your package dependencies using:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>webr<span class="sc">::</span><span class="fu">install</span>(<span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>There currently is no <code>webr</code> package; it’s all internal.</p>
+<p>To declare packages, use <code>library()</code> calls or a DESCRIPTION file</p>
+<p><br></p>
+<p>The renv package is used to figure this out.</p>
 <p><br></p>
 <p>(GH issue: <a href="https://github.com/posit-dev/r-shinylive/issues/9">Add feature/instructions for additional R packages</a>)</p>
 </section></section>
 <section>
 <section id="if-you-live-in-javascripts-house-you-have-to-live-by-javascripts-rules" class="title-slide slide level1 center">
-<h1>If you live in JavaScript’s house, you have to live by JavaScript’s rules</h1>
+<h1>If you live in JavaScript’s house, <br> you have to live by JavaScript’s rules</h1>
 
 </section>
 <section id="data-access" class="slide level2">
@@ -457,6 +455,16 @@ Max Kuhn
 <p><code>download.file()</code> is an option but it must be done using specific request types.</p>
 <p><br></p>
 <p>It’s a work in progress. (GH issue: <a href="https://github.com/posit-dev/r-shinylive/issues/13">Add local folder support</a>)</p>
+</section>
+<section id="as-always-be-careful" class="slide level2">
+<h2>As always, be careful…</h2>
+<p><br></p>
+<ul>
+<li><p>All the source code goes to the client</p></li>
+<li><p>All of the data goes to the client</p></li>
+<li><p>Don’t include credentials</p></li>
+<li><p>Don’t include sensitive data</p></li>
+</ul>
 </section></section>
 <section>
 <section id="section-1" class="title-slide slide level1 center">
@@ -470,7 +478,7 @@ Max Kuhn
 <h2>Thanks</h2>
 <p>Thanks for the invitation to speak today!</p>
 <p><br></p>
-<p>Thanks to George Stagg, Joe Cheng, Winston Chang, and everyone else who made <code>webR</code> and <code>shinylive</code> happen.</p>
+<p>Thanks to George Stagg, Joe Cheng, Winston Chang, Gordon Shotwell, and everyone else who made <code>webR</code> and <code>shinylive</code> happen.</p>
 <div class="footer footer-default">
 <p><a href="https://topepo.github.io/2023-r-pharma" class="uri">https://topepo.github.io/2023-r-pharma</a></p>
 </div>
@@ -716,44 +724,6 @@ Max Kuhn
     } );
 
     </script>
-    
-    <script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
-    </script>
-
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
